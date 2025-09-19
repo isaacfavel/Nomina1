@@ -1,4 +1,5 @@
-﻿using OfficeOpenXml;
+﻿using Nomina.Formulario;
+using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -71,22 +72,56 @@ namespace Nomina
                 }
 
                 // Leer las filas de datos
-                int rowCount = worksheet.Dimension.End.Row;
+                int rowCount = 0;
+                for (int i = 3; i < worksheet.Dimension.End.Row; i++)
+                {
+                    if (worksheet.Cells[i, 1].Text == "")
+                        break;
+                    else
+                        rowCount = rowCount + 1;
+                }
+
+                rowCount = rowCount + 3;
                 for (int i = 3; i < rowCount; i++)
                 {
-                    DataRow row = dt.NewRow();
-                    for (int j = 1; j < dt.Columns.Count; j++)
+                        DataRow row = dt.NewRow();
+                    for (int j = 1; j < dt.Columns.Count+1; j++)
                     {
-                        row[j-1] = worksheet.Cells[i, j ].Text;
+                        if (worksheet.Cells[i, j].Text == "")
+                            break;
+                            row[j-1] = worksheet.Cells[i, j ].Text;
                         if (j == 2) { 
                             string[] partes=SepararNombre(worksheet.Cells[i, j].Text);
+                            row[1]=partes[1];
+                            row[2]=partes[0];
+                            j++;
+
                         }
                     }
                     dt.Rows.Add(row);
                 }
 
-
+                //Mostrar los datos en el DataGridView
+                dgvInformacion.Rows.Clear();
+                dgvInformacion.Rows.Add(dt.Rows.Count);
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    for (int j = 0; j < 6; j++)
+                    {
+                        dgvInformacion.Rows[i].Cells[j].Value = dt.Rows[i][j].ToString();
+                    }
+                }
+                //for (int i = 0; i < 6; i++)
+                //{
+                //    for (int j = 0; j < dt.Rows.Count; j++)
+                //    {
+                //        dgvInformacion[i, j].Value = dt.Rows[j][i];
+                //    }
+                //}
             }
+
+            
+
         }
 
         private string [] SepararNombre(string nombreCompleto)
@@ -100,6 +135,12 @@ namespace Nomina
                 partes[1] = nombre.Trim();               
             }
             return partes;
+        }
+
+        private void datosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form2 f2 = new Form2();
+            f2.ShowDialog();
         }
     }
 }
