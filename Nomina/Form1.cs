@@ -50,7 +50,7 @@ namespace Nomina
 
         private void CargarExcel(string path)
         {
-            ExcelPackage.License.SetNonCommercialPersonal("Jose Luis Mota Espeleta");
+            ExcelPackage.License.SetNonCommercialPersonal("Isaac Romero Favela");
 
             using (var package = new ExcelPackage(new System.IO.FileInfo(path)))
             {
