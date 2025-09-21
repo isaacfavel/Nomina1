@@ -85,18 +85,20 @@ namespace Nomina
                 for (int i = 3; i < rowCount; i++)
                 {
                         DataRow row = dt.NewRow();
+                    int p = 1;
                     for (int j = 1; j < dt.Columns.Count+1; j++)
                     {
-                        if (worksheet.Cells[i, j].Text == "")
+                        if (worksheet.Cells[i, p].Text == "")
                             break;
-                            row[j-1] = worksheet.Cells[i, j ].Text;
+                            row[j-1] = worksheet.Cells[i, p].Text;
                         if (j == 2) { 
-                            string[] partes=SepararNombre(worksheet.Cells[i, j].Text);
+                            string[] partes=SepararNombre(worksheet.Cells[i, p].Text);
                             row[1]=partes[1];
                             row[2]=partes[0];
                             j++;
 
                         }
+                        p++;
                     }
                     dt.Rows.Add(row);
                 }
