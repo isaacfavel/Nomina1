@@ -62,8 +62,7 @@ namespace Nomina.Formulario
                 
                 File.WriteAllText(archivo, jsonString);
                 MessageBox.Show("Datos guardados correctamente","Exito",MessageBoxButtons.OK,MessageBoxIcon.Information);
-
-                this.Close();
+                Close();
                     }
             catch(Exception ex)
             {

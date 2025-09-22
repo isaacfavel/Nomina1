@@ -142,7 +142,7 @@ namespace Nomina
             f2.ShowDialog();
         }
 
-        private void multiplicarDatos()
+        public void multiplicarDatos()
         {
             string archivo = "datos.json";
             if (File.Exists(archivo))
