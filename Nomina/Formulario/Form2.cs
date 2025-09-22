@@ -59,9 +59,10 @@ namespace Nomina.Formulario
                 string archivo = "datos.json";
 
                 string jsonString = JsonConvert.SerializeObject(datos, Formatting.Indented);
-
+                
                 File.WriteAllText(archivo, jsonString);
                 MessageBox.Show("Datos guardados correctamente","Exito",MessageBoxButtons.OK,MessageBoxIcon.Information);
+
                 this.Close();
                     }
             catch(Exception ex)
